@@ -1,0 +1,10 @@
+# Development files - tidak di-deploy
+_dev/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
