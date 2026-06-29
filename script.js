@@ -44,6 +44,39 @@ const revealObserver = new IntersectionObserver(
 
 revealItems.forEach((item) => revealObserver.observe(item));
 
+let revealTicking = false;
+
+const syncRevealOnScroll = () => {
+  revealTicking = false;
+
+  revealItems.forEach((item) => {
+    if (item.classList.contains("is-visible")) {
+      return;
+    }
+
+    const rect = item.getBoundingClientRect();
+    const isInView = rect.top < window.innerHeight * 0.92 && rect.bottom > 0;
+
+    if (isInView) {
+      item.classList.add("is-visible");
+      revealObserver.unobserve(item);
+    }
+  });
+};
+
+const scheduleRevealSync = () => {
+  if (revealTicking) {
+    return;
+  }
+
+  revealTicking = true;
+  window.requestAnimationFrame(syncRevealOnScroll);
+};
+
+window.addEventListener("scroll", scheduleRevealSync, { passive: true });
+window.addEventListener("resize", scheduleRevealSync);
+scheduleRevealSync();
+
 const loadBrochureImages = (item) => {
   item.querySelectorAll("img[data-src]").forEach((image) => {
     image.src = image.dataset.src;
