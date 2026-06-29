@@ -4,6 +4,11 @@ const navToggle = document.querySelector("[data-nav-toggle]");
 const revealItems = document.querySelectorAll(".reveal");
 const brochureItems = document.querySelectorAll(".brochure-item");
 const brochureTriggers = document.querySelectorAll(".open-brochure");
+const carousels = document.querySelectorAll("[data-carousel]");
+const imageOpeners = document.querySelectorAll("[data-full-image]");
+const imageDialog = document.querySelector("[data-image-dialog]");
+const dialogImage = document.querySelector("[data-dialog-image]");
+const dialogClose = document.querySelector("[data-dialog-close]");
 
 const updateHeader = () => {
   header.classList.toggle("is-scrolled", window.scrollY > 12);
@@ -138,3 +143,78 @@ const openBrochureFromHash = () => {
 
 window.addEventListener("hashchange", openBrochureFromHash);
 openBrochureFromHash();
+
+carousels.forEach((carousel) => {
+  const track = carousel.querySelector(".carousel-track");
+  const slides = Array.from(carousel.querySelectorAll(".promo-banner"));
+  const prev = carousel.querySelector("[data-carousel-prev]");
+  const next = carousel.querySelector("[data-carousel-next]");
+  const dotsWrap = carousel.querySelector("[data-carousel-dots]");
+  let index = 0;
+
+  if (!track || slides.length === 0 || !prev || !next || !dotsWrap) {
+    return;
+  }
+
+  const dots = slides.map((_, dotIndex) => {
+    const dot = document.createElement("button");
+    dot.type = "button";
+    dot.className = "carousel-dot";
+    dot.setAttribute("aria-label", `Lihat banner ${dotIndex + 1}`);
+    dot.addEventListener("click", () => setSlide(dotIndex));
+    dotsWrap.append(dot);
+    return dot;
+  });
+
+  const setSlide = (nextIndex) => {
+    index = (nextIndex + slides.length) % slides.length;
+    track.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach((dot, dotIndex) => {
+      dot.classList.toggle("is-active", dotIndex === index);
+      dot.setAttribute("aria-current", dotIndex === index ? "true" : "false");
+    });
+  };
+
+  prev.addEventListener("click", () => setSlide(index - 1));
+  next.addEventListener("click", () => setSlide(index + 1));
+  setSlide(0);
+});
+
+const closeImageDialog = () => {
+  if (!imageDialog) {
+    return;
+  }
+
+  if (imageDialog.open) {
+    imageDialog.close();
+  }
+};
+
+imageOpeners.forEach((opener) => {
+  opener.addEventListener("click", () => {
+    const src = opener.dataset.fullImage;
+    const alt = opener.dataset.fullAlt || opener.querySelector("img")?.alt || "";
+
+    if (!src || !imageDialog || !dialogImage) {
+      return;
+    }
+
+    dialogImage.src = src;
+    dialogImage.alt = alt;
+
+    if (typeof imageDialog.showModal === "function") {
+      imageDialog.showModal();
+      return;
+    }
+
+    window.open(src, "_blank", "noopener");
+  });
+});
+
+dialogClose?.addEventListener("click", closeImageDialog);
+
+imageDialog?.addEventListener("click", (event) => {
+  if (event.target === imageDialog) {
+    closeImageDialog();
+  }
+});

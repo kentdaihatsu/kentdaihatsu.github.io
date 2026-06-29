@@ -584,13 +584,42 @@ section,
 
 .dealer-layout {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.15fr);
-  gap: 34px;
-  align-items: start;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 44px;
+  align-items: center;
 }
 
-.dealer-layout .section-head {
+.dealer-detail {
   margin-bottom: 0;
+}
+
+.dealer-detail h2 {
+  max-width: 580px;
+}
+
+.dealer-photo {
+  margin: 0;
+}
+
+.dealer-photo .image-open {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--soft);
+  box-shadow: var(--shadow);
+}
+
+.dealer-photo img {
+  width: 100%;
+  height: 430px;
+  object-fit: cover;
+}
+
+.dealer-photo figcaption {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 800;
 }
 
 .benefit-row {
@@ -612,51 +641,25 @@ section,
   font-weight: 900;
 }
 
-.office-card {
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--paper);
-  box-shadow: var(--shadow);
-}
-
-.office-card > img {
-  width: 100%;
-  height: 330px;
-  object-fit: cover;
-}
-
-.office-info {
-  padding: 24px;
-}
-
-.office-info > img {
-  width: min(100%, 360px);
-  height: auto;
-  padding: 8px;
-  border-radius: 8px;
-  background: var(--soft);
-}
-
-.office-info dl {
+.dealer-contact-list {
   display: grid;
-  gap: 16px;
-  margin: 22px 0 0;
+  gap: 14px;
+  margin: 28px 0 0;
 }
 
-.office-info div {
+.dealer-contact-list div {
   padding-top: 14px;
   border-top: 1px solid var(--line);
 }
 
-.office-info dt {
+.dealer-contact-list dt {
   color: var(--muted);
   font-size: 0.8rem;
   font-weight: 900;
   text-transform: uppercase;
 }
 
-.office-info dd {
+.dealer-contact-list dd {
   margin: 4px 0 0;
   font-size: 1.02rem;
   font-weight: 800;
@@ -667,28 +670,145 @@ section,
   margin-top: 58px;
 }
 
-.promo-banner-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
+.banner-carousel {
+  position: relative;
+}
+
+.carousel-viewport {
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 360ms ease;
 }
 
 .promo-banner {
+  flex: 0 0 100%;
   margin: 0;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #0f1217;
+  background: var(--paper);
   box-shadow: 0 14px 34px rgba(17, 24, 39, 0.08);
 }
 
-.promo-banner-wide {
-  grid-column: 1 / -1;
+.promo-banner .image-open {
+  height: 100%;
 }
 
 .promo-banner img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
+}
+
+.image-open {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.dealer-photo .image-open {
+  aspect-ratio: auto;
+}
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.carousel-button,
+.dialog-close {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 999px;
+  color: var(--paper);
+  background: var(--red);
+  box-shadow: 0 14px 28px rgba(215, 25, 32, 0.24);
+  cursor: pointer;
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+.carousel-button:hover,
+.carousel-button:focus-visible,
+.dialog-close:hover,
+.dialog-close:focus-visible {
+  transform: translateY(-2px);
+  background: var(--red-dark);
+}
+
+.carousel-button svg,
+.dialog-close svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.carousel-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.carousel-dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #cfd6df;
+  cursor: pointer;
+  transition: width 180ms ease, background 180ms ease;
+}
+
+.carousel-dot.is-active {
+  width: 26px;
+  background: var(--red);
+}
+
+.image-dialog {
+  width: min(1180px, calc(100vw - 28px));
+  max-height: calc(100vh - 28px);
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+}
+
+.image-dialog::backdrop {
+  background: rgba(8, 10, 14, 0.82);
+}
+
+.image-dialog img {
+  width: 100%;
+  max-height: calc(100vh - 28px);
+  object-fit: contain;
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+.dialog-close {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 2;
 }
 
 .promo-section {
@@ -1033,8 +1153,7 @@ section,
 
   .intro-grid,
   .model-grid,
-  .feature-grid,
-  .promo-banner-grid {
+  .feature-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1056,13 +1175,29 @@ section,
 
   .model-body,
   .feature-item,
-  .contact-card,
-  .office-info {
+  .contact-card {
     padding: 20px;
   }
 
-  .office-card > img {
+  .dealer-photo img {
     height: 250px;
+  }
+
+  .dealer-photo figcaption {
+    font-size: 0.86rem;
+  }
+
+  .dealer-contact-list dd {
+    font-size: 0.98rem;
+  }
+
+  .carousel-button {
+    width: 42px;
+    height: 42px;
+  }
+
+  .image-dialog {
+    width: calc(100vw - 20px);
   }
 
   .model-card img {
