@@ -1167,8 +1167,14 @@ section,
   .contact-person-mobile {
     display: block;
     position: relative;
-    max-width: 300px;
-    margin: 24px auto 0;
+    max-width: 280px;
+    margin: 24px auto -20px;
+    z-index: 1;
+  }
+
+  .contact-cta {
+    position: relative;
+    z-index: 2;
   }
 
   .contact-person-image {
