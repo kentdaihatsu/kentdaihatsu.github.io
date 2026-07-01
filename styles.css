@@ -1211,7 +1211,7 @@ section,
 
   .contact-person-badge {
     position: absolute;
-    bottom: 16%;
+    bottom: 12%;
     right: 0;
     z-index: 2;
     width: 240px;
