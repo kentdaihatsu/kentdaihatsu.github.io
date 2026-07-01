@@ -1167,7 +1167,7 @@ section,
   .contact-person-mobile {
     display: block;
     position: relative;
-    max-width: 280px;
+    width: 100%;
     margin: 24px auto -36px;
     z-index: 1;
     pointer-events: none;
@@ -1185,6 +1185,8 @@ section,
   .contact-person-image {
     position: relative;
     z-index: 1;
+    max-width: 280px;
+    margin: 0 auto;
   }
 
   .contact-person-image::before {
@@ -1209,8 +1211,8 @@ section,
 
   .contact-person-badge {
     position: absolute;
-    bottom: 8%;
-    right: -4%;
+    bottom: 16%;
+    right: 0;
     z-index: 2;
     width: 240px;
     padding: 14px 16px;
