@@ -283,7 +283,10 @@ section,
   z-index: 1;
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 28px 42px rgba(0, 0, 0, 0.38));
+  filter:
+    drop-shadow(0 0 1px rgba(255, 255, 255, 0.72))
+    drop-shadow(0 0 10px rgba(255, 255, 255, 0.18))
+    drop-shadow(0 28px 42px rgba(0, 0, 0, 0.38));
 }
 
 .hero-person-badge {
