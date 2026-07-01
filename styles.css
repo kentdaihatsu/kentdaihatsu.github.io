@@ -1168,8 +1168,13 @@ section,
     display: block;
     position: relative;
     max-width: 280px;
-    margin: 24px auto -20px;
+    margin: 24px auto -36px;
     z-index: 1;
+    pointer-events: none;
+  }
+
+  .contact-copy .button {
+    margin-top: 0;
   }
 
   .contact-cta {
